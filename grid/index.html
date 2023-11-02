@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Students Log
+    </title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">Students LOG</h1>
+        <form class="search">
+        <input class="search__input" placeholder="Search Students" type="text" />
+        <select class="search__select">
+            <option class="search__select-option">
+                all grades
+            </option>
+                       <option class="search__select-option">1</option>
+                       <option class="search__select-option">2</option>
+        </select>
+    </form>
+<nav class="header__list">
+    <div class="header__item">
+        <span class="header__item-title">New Student</span>
+        <svg class="header__item-icon" role="icon" aria-label="plus icon">
+            <use xlink:href="assets/icons.svg#icon-plus"></use>
+        </svg>
+    </div>
+    <div class="header__item">
+        <span class="header__item-title">Delete All</span>
+        <svg class="header__item-icon" role="icon" aria-label="trash icon">
+            <use xlink:href="assets/icons.svg#icon-bin2"></use>
+        </svg>
+    </div>
+    <div class="header__item">
+        <span class="header__item-title">download</span>
+        <svg class="header__item-icon" role="icon" aria-label="download icon">
+            <use xlink:href="assets/icons.svg#icon-download3"></use>
+        </svg>
+    </div>
+</nav>
+    </header>
+    <main class="table">
+        <div class="table__header">
+
+            <div class="table__row">
+                <span class="table__cell">ID</span>
+                <span class="table__cell">Name</span>
+                <span class="table__cell">Email</span>
+                <span class="table__cell">Grade</span>
+                <span class="table__cell">Guardian Contact #</span>
+                <span class="table__cell">Actions</span>
+    
+            </div>
+        </div>
+        <div class="table__body">
+            
+        <div class="table__row">
+            <span class="table__cell" data-cell="id">1</span>
+            <span class="table__cell"data-cell="name">Zaky Aly</span>
+            <span class="table__cell table__cell-email"data-cell="email">zaky.aly88@gmail.com</span>
+            <span class="table__cell"data-cell="grade">2</span>
+            <span class="table__cell" data-cell="guardian contact">+1-613-111-3344</span>
+            <span class="table__cell table__action" data-cell="actions">Edit <span class="cell__slash">/</span>  Delete</span>
+
+        </div>
+        <div class="table__row">
+            <span class="table__cell" data-cell="id">2</span>
+            <span class="table__cell"data-cell="name">Hossam Mourad</span>
+            <span class="table__cell table__cell-email"data-cell="email">hossam.mourad@example.com</span>
+            <span class="table__cell"data-cell="grade">1</span>
+            <span class="table__cell"data-cell="guardian contact">+1-613-555-6677</span>
+            <span class="table__cell table__action"data-cell="actions">Edit <span class="cell__slash">/</span>  Delete</span>
+
+        </div>
+    </div> 
+
+    </main>
+    
+    
+</body>
+</html>
