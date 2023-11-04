@@ -17,9 +17,12 @@ font-size: 1.6rem;
 color: #000;
 text-transform: capitalize;
 }
-.header , .table{
+.header , .table , .table__grid{
     width: 95%;
 
+}
+.table , .table__grid{
+    overflow-x: auto;
 }
 .header{
     display: flex;
@@ -141,6 +144,61 @@ z-index: 6;
 background-color: #eeee;
 width: 2px;
 }
+.table__grid{
+    margin: 4rem auto;
+}
+.table__grid .table__grid__row{
+    display: grid;
+    grid-template-columns: 7rem repeat(2 , 1fr) 10rem repeat(2 , 1fr);
+    word-wrap: break-word; // not work as i expected in maybe 1300 px th email content is not breaked
+
+
+}
+ .table__grid .table__grid__header .table__grid__row{
+    border-bottom:  2px solid #eeeeee;
+}
+.table__grid .table__grid__body .table__grid__row {
+    border-bottom:  2px dashed #eeeeee;
+} 
+.table__grid .table__grid__cell{
+    padding: 1.5rem 0.7rem 2rem;
+}
+
+.table__grid__body  .table__grid__action{
+color: #5D5FEF ;
+}
+ .table__grid__cell .cell__slash{
+    color: #cccccc;
+ }
+
+ .table__grid__cell-email{
+    text-decoration: underline;
+ }
+
+ .table__grid__cell{
+    position: relative;
+    
+}
+.table__grid__header .table__grid__cell:not(:first-child ):after {
+    content: "";
+    position: absolute;
+left: -5%;
+top: 0%;
+height: calc(100vh - 11rem);
+z-index: 6;
+background-color: #eeeeee;
+width: 2px;
+}
+
+@media only screen and (max-width:50em) {
+.table , .table__grid{
+    width: 100%;
+}
+ .table .table__cell{
+    padding: 1.5rem;
+    text-align: start;
+ }   
+}
 @media only screen and (max-width: 40.625em) {
     html{
         font-size: 50%;
@@ -179,4 +237,23 @@ justify-content: space-between;
     padding: 1rem;
        
 }
+.table__grid__header .table__grid__row .table__grid__cell{
+    display: none;
+}
+.table__grid__body .table__grid__row{
+    display: grid;
+    grid-template-columns:1fr;
+    grid-template-rows: repeat(auto-fit , 1fr);
+
+    
+}
+.table__grid__body .table__grid__row .table__grid__cell::before{
+    content: attr(data-cell) " : ";
+    font-weight: bold;
+    text-decoration: none;
+    padding-right: 2rem;
+    color :black
+
+}
+
 }
