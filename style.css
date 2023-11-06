@@ -21,9 +21,7 @@ text-transform: capitalize;
     width: 95%;
 
 }
-.table , .table__grid{
-    overflow-x: auto;
-}
+
 .header{
     display: flex;
     align-items: center;
