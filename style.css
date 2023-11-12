@@ -31,7 +31,15 @@ body {
   color: var(--main-font-color);
   text-transform: capitalize;
 }
+.button{
+  border: none;
+  outline: none;
+  cursor: pointer;
 
+}
+.rounded-sm{
+  border-radius: 5px;
+}
 .header {
   width: 95%;
   display: flex;
@@ -65,7 +73,6 @@ body {
 .search .search__select {
   flex-basis: 35%;
   text-indent: var(--font-base);
-  border-radius: 5px;
   appearance: none;
   background-image: url("./assets/arrow-down-sign-to-navigate.png");
   background-repeat: no-repeat;
@@ -169,9 +176,6 @@ body {
 .students__table__cell-button--edit,
 .students__table__cell-button--delete {
   background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
   color: var(--color-secondary);
 }
 .overlay {
@@ -194,7 +198,6 @@ body {
   transform: translate(-50%, -50%);
   background-color: var(--color-tertiary);
   padding: calc(var(--font-base) * 2);
-  border-radius: 5px;
   z-index: 11;
   flex-direction: column;
   gap: calc(var(--font-base) * 2);
@@ -235,15 +238,8 @@ body {
   gap: calc(var(--font-base) * 2);
   justify-content: flex-end;
 }
-.popup__delete-all__button {
-  background-color: var(--color-secondary);
-  color: var(--background-color);
-  padding: calc(var(--font-base) * 1) calc(var(--font-base) * 2);
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
+
+
 .popup__new-student {
   max-width: 50rem;
   width: 100%;
@@ -255,28 +251,22 @@ body {
 }
 .popup__new-student__form .popup__new-student__form__input {
   padding: calc(var(--font-base) * 1);
-  border-radius: 5px;
   border: none;
   outline: none;
   background-color: var(--color-primary);
 }
-.popup__new-student__form__button--add {
+.popup__new-student__form__button--toggle , .popup__delete-all__button--delete {
   background-color: var(--color-secondary);
   color: var(--background-color);
   padding: calc(var(--font-base) * 1) calc(var(--font-base) * 2);
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  cursor: pointer;
 }
-.popup__new-student__form__button--cancel {
+.popup__new-student__form__button--cancel , .popup__delete-all__button--cancel {
   background-color: var(--color-tertiary);
   color: var(--background-color);
   padding: calc(var(--font-base) * 1) calc(var(--font-base) * 2);
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  cursor: pointer;
+}
+.students__table__cell-email{
+  text-transform: none;
 }
 .hidden {
   transform: scale(0);

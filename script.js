@@ -1,3 +1,5 @@
+"use strict";
+
 const handleSetLocalStorage = (key, value) => {
     if (!key || !value) return;
     return localStorage.setItem(key, JSON.stringify(value));
@@ -11,8 +13,10 @@ const handleRemoveLocalStorage = (key) => {
     return localStorage.removeItem(key);
 }
 let students = []
+
 if (handleGetLocalStorage('students')) {
     students = handleGetLocalStorage('students')
+
 }
 else {
     students = [
@@ -20,15 +24,16 @@ else {
             name: 'zaky aly',
             email: 'zaky.aly88@gmail.com',
             grade: 2,
-            graduation_contact: "+1-613-111-3344"
+            graduation_contact: "+1-613-111-3344",
 
         }, {
             name: 'hossam mourad',
             email: 'hossam.mourad@example.com',
             grade: 1,
-            graduation_contact: "+1-613-555-6677"
+            graduation_contact: "+1-613-555-6677",
 
         }]
+       
     handleSetLocalStorage('students', students)
 }
 
@@ -45,6 +50,9 @@ const tableBody = document.querySelector('.students__table__body');
 const popupAddNewStudent = document.querySelector('.popup__new-student');
 const closeAddNewStudentBtn = document.querySelector('.popup__new-student__close');
 const AddNewStudentForm = document.querySelector('.popup__new-student__form');
+const toggleNewStudentForm = document.querySelector('.popup__new-student__form__button--toggle');
+let isEditFlag = false
+let editIndex = 0
 const showModel = (model) => {
     model.classList.remove('hidden');
     overlay.classList.remove('hidden');
@@ -66,7 +74,13 @@ const handleCloseBtnAddNewStudent = () => {
     hideModel(popupAddNewStudent)
 }
 const handleAddNewStudentBtnClick = () => {
+    
     showModel(popupAddNewStudent)
+    clearAddNewStudentForm()
+    isEditFlag = false
+    if(!isEditFlag){
+        toggleNewStudentForm.textContent = "Add Student"
+    }
 }
 
 cancelBtnDeleteAll.addEventListener('click', handleCancelBtnDeleteAllClick);
@@ -78,29 +92,54 @@ overlay.addEventListener('click', () => {
     hideModel(popupAddNewStudent)
 })
 
+const deleteRowTable =(row)=>{
+    row.remove()
 
+
+}
 const createRowTable = (index, student) => {
     const row = document.createElement('tr');
     row.className = 'students__table__row';
+    row.setAttribute("data-row" , index)
     row.innerHTML = `
-    <td class="students__table__cell" data-cell="id">${index + 1}</td>
+    <td class="students__table__cell" data-cell="id">${(index) + 1}</td>
     <td class="students__table__cell" data-cell="name">${student.name}</td>
     <td class="students__table__cell students__table__cell-email" data-cell="email">${student.email}</td>
     <td class="students__table__cell" data-cell="grade">${student.grade}</td>
     <td class="students__table__cell" data-cell="guardian contact">${student.graduation_contact}</td>
     <td class="students__table__cell" data-cell="actions">
-    <button class="students__table__cell-button--edit">Edit</button>
+    <button class="students__table__cell-button--edit button">Edit</button>
     <span class="cell__slash">/</span>
-            <button class="students__table__cell-button--delete">Delete</button>
+            <button class="students__table__cell-button--delete button">Delete</button>
         </td>
     `;
-
+    const deleteBtn = row.querySelector('.students__table__cell-button--delete');
+    const editBtn = row.querySelector('.students__table__cell-button--edit');
+    deleteBtn.addEventListener('click', (e)=>{
+        const row = e.target.closest(".students__table__row")
+        const studentId = Number(row.dataset.row) 
+        students.splice(studentId , 1)
+        deleteRowTable(row)
+        handleSetLocalStorage('students', students)
+    } )
+    editBtn.addEventListener('click', (e)=>{
+        isEditFlag = true
+        const row = e.target.closest(".students__table__row")
+        
+        const studentId = Number(row.dataset.row) 
+        const currentStudent = students[studentId]
+        editIndex = studentId
+        showModel(popupAddNewStudent)
+        if(isEditFlag){
+            toggleNewStudentForm.textContent = "Edit Student"
+        }
+        fillEditStudentValue(currentStudent)
+    } )
     return row;
 };
 
 const renderTable = () => {
     const fragment = document.createDocumentFragment();
-
     students.forEach((student, index) => {
         const row = createRowTable(index, student);
         fragment.appendChild(row);
@@ -137,6 +176,7 @@ const ValidationGraduationContact = (input, student) => {
     }
 }
 
+
 const validationAddNewStudentForm = (input, student) => {
     if (input.value === '') {
         input.classList.add('popup__new-student__input--error')
@@ -151,6 +191,45 @@ const validationAddNewStudentForm = (input, student) => {
         }
     }
 }
+const addNewStudent = (student , keys) => {
+    if (keys.length === 4 ) {
+        students.push(student)
+        handleSetLocalStorage('students', students)
+        hideModel(popupAddNewStudent)
+      
+        renderRowTable(students.length - 1, student)
+            
+    }
+    else {
+        alert('please fill all inputs')
+    } }
+const editStudent = (inputs) => {
+    const currentStudent  = {}
+    inputs.forEach(input => {
+        input.classList.remove('popup__new-student__input--error')
+        if(input.name === "graduation_contact"){
+            const number = input.value.replace(/\D/g, '').slice(1)
+            input.value = number
+            ValidationGraduationContact(input, currentStudent)
+        }
+        else{
+            currentStudent[input.name] = input.value
+        }
+        
+    })
+    const keys = Object.keys(currentStudent)
+    if (keys.length === 4 ) {
+        const row = document.querySelector(`[data-row="${editIndex}"]`)
+        students[editIndex] = currentStudent
+        const currentStudentRow = createRowTable(editIndex, currentStudent)
+        row.replaceWith(currentStudentRow)
+        hideModel(popupAddNewStudent)
+        handleSetLocalStorage('students', students)            
+    }
+    else {
+        alert('please fill all inputs')
+    } 
+}
 
 const handleSubmitNewStudentForm = (e) => {
     e.preventDefault()
@@ -159,24 +238,29 @@ const handleSubmitNewStudentForm = (e) => {
     inputs.forEach(input => {
         validationAddNewStudentForm(input, student)
     })
-    console.log(student, "student")
     const keys = Object.keys(student)
-    if (keys.length === 4) {
-        students.push(student)
-        handleSetLocalStorage('students', students)
-        hideModel(popupAddNewStudent)
-        renderRowTable(students.length - 1, student)
+    if(!isEditFlag){
+        addNewStudent(student , keys)
+    }else{
+        editStudent(inputs)
     }
-    else {
-        alert('please fill all inputs')
-    }
+    
     clearAddNewStudentForm()
 }
+
 const clearAddNewStudentForm = () => {
     const inputs = AddNewStudentForm.querySelectorAll('input')
     inputs.forEach(input => {
         input.value = ''
     })
+}
+const fillEditStudentValue = (student)=>{
+    const inputs = AddNewStudentForm.querySelectorAll('input')
+    inputs.forEach(input => {
+        input.value = student[input.name]
+    })
+
+
 }
 addNewStudentBtn.addEventListener('click', handleAddNewStudentBtnClick)
 closeAddNewStudentBtn.addEventListener('click', handleCloseBtnAddNewStudent)
