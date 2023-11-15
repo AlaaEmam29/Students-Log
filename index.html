@@ -1,115 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Students Log" />
-  <meta name="keywords" content="Student, Log, Students Log" />
-  <title>
-    Students Log
-  </title>
-
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./script.js" defer></script>
-</head>
-
-<body>
-  <div class="overlay hidden"></div>
-  <div class="popup__delete-all rounded-sm hidden">
-    <button class="popup__delete-all__close">
-      <svg class="popup__delete-all__close-icon" role="icon" aria-label="close icon">
-        <use xlink:href="assets/icons.svg#icon-cross"></use>
-      </svg>
-    </button>
-    <div class="popup__delete-all__container">
-      <h2 class="popup__delete-all__title">Are you sure you want to delete all students?</h2>
-      <div class="popup__delete-all__buttons">
-        <button class="popup__delete-all__button--cancel rounded-sm button">Cancel</button>
-        <button class="popup__delete-all__button--delete rounded-sm button">Delete</button>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Students Log" />
+    <meta name="keywords" content="Student, Log, Students Log" />
+    <title>
+      Students Log
+    </title>
+  
+      <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div class="overlay hidden"></div>
+    <div class="popup__delete-all rounded-sm hidden">
+      <button class="popup__delete-all__close">
+        <svg class="popup__delete-all__close-icon" role="icon" aria-label="close icon">
+          <use xlink:href="./src/assets/icons.svg#icon-cross"></use>
+        </svg>
+      </button>
+      <div class="popup__delete-all__container">
+        <h2 class="popup__delete-all__title">Are you sure you want to delete all students?</h2>
+        <div class="popup__delete-all__buttons">
+          <button class="popup__delete-all__button--cancel rounded-sm button">Cancel</button>
+          <button class="popup__delete-all__button--delete rounded-sm button">Delete</button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="popup__new-student rounded-sm hidden">
-    <button class="popup__new-student__close">
-      <svg class="popup__new-student__close-icon" role="icon" aria-label="close icon">
-        <use xlink:href="assets/icons.svg#icon-cross"></use>
-      </svg>
-    </button>
-    <div class="popup__new-student__container">
-      <h2 class="popup__new-student__title">Add New Student</h2>
-      <form class="popup__new-student__form">
-        <input class="popup__new-student__form__input rounded-sm" type="text" placeholder="Name" name="name" />
-        <input class="popup__new-student__form__input rounded-sm" type="email" placeholder="Email" name="email" />
-        <input class="popup__new-student__form__input rounded-sm" type="number" placeholder="Grade" name="grade" />
-        <input class="popup__new-student__form__input rounded-sm" type="text" placeholder="Guardian Contact"
-          name="graduation_contact" />
-        <div class="popup__new-student__form__buttons">
-          <button type="reset"
-            class="popup__new-student__form__button--cancel rounded-sm button">Cancel</button>
-          <button type="submit"
-            class="popup__new-student__form__button--toggle rounded-sm button">Add Student</button>
-        </div>
+    <div class="popup__new-student rounded-sm hidden">
+      <button class="popup__new-student__close">
+        <svg class="popup__new-student__close-icon" role="icon" aria-label="close icon">
+          <use xlink:href="./src/assets/icons.svg#icon-cross"></use>
+        </svg>
+      </button>
+      <div class="popup__new-student__container">
+        <h2 class="popup__new-student__title">Add New Student</h2>
+        <form class="popup__new-student__form">
+          <input class="popup__new-student__form__input rounded-sm" type="text" placeholder="Name" name="name" />
+          <input class="popup__new-student__form__input rounded-sm" type="email" placeholder="Email" name="email" />
+          <input class="popup__new-student__form__input rounded-sm" type="number" placeholder="Grade" name="grade" />
+          <input class="popup__new-student__form__input rounded-sm" type="text" placeholder="Guardian Contact"
+            name="graduation_contact" />
+          <div class="popup__new-student__form__buttons">
+            <button type="reset"
+              class="popup__new-student__form__button--cancel rounded-sm button">Cancel</button>
+            <button type="submit"
+              class="popup__new-student__form__button--toggle rounded-sm button">Add Student</button>
+          </div>
+        </form>
+      </div>
+    </div>  
+    <header class="header">
+      <h1 class="header__title">Students LOG</h1>
+      <form class="search">
+        <input class="search__input" placeholder="Search Students" type="text" />
+        <select class=" search__select rounded-sm" name="grade">
+          <option class="search__select-option" value="all">
+            All grades
+          </option>
+          <option class="search__select-option" value="1">
+            1
+          </option>
+          <option class="search__select-option" value="2">
+            2
+          </option>
+        </select>
       </form>
-    </div>
-  </div>
+      <nav class="header__list">
+        <button class="header__item">
+          <span class="header__item-title" id="add-new-student">New Student</span>
+          <svg class="header__item-icon" role="icon" aria-label="plus icon">
+            <use xlink:href="./src/assets/icons.svg#icon-plus"></use>
+          </svg>
+        </button>
+        <button class="header__item " id="delete-all">
+          <span class="header__item-title">Delete All</span>
+          <svg class="header__item-icon" role="icon" aria-label="trash icon">
+            <use xlink:href="./src/assets/icons.svg#icon-bin2"></use>
+          </svg>
+        </button>
+        <button class="header__item" id="download-btn">
+          <span class="header__item-title">Download</span>
+          <svg class="header__item-icon" role="icon" aria-label="download icon">
+            <use xlink:href="./src/assets/icons.svg#icon-download3"></use>
+          </svg>
+        </button>
+      </nav>
+    </header>
+    <main class="students__container">
+  
+      <table class="students__table">
+        <thead class="students__table__header">
+          <tr class="students__table__row">
+            <th class="students__table__cell" data-cell="id">ID</th>
+            <th class="students__table__cell" data-cell="name">Name</th>
+            <th class="students__table__cell " data-cell="email">Email</th>
+            <th class="students__table__cell" data-cell="grade">Grade</th>
+            <th class="students__table__cell" data-cell="guardian contact">Guardian Contact</th>
+            <th class="students__table__cell" data-cell="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="students__table__body">
+  
+        </tbody>
+      </table>
+    </main>
 
-  <header class="header">
-    <h1 class="header__title">Students LOG</h1>
-    <form class="search">
-      <input class="search__input" placeholder="Search Students" type="text" />
-      <select class=" search__select rounded-sm" name="grade">
-        <option class="search__select-option" value="all">
-          All grades
-        </option>
-        <option class="search__select-option" value="1">
-          1
-        </option>
-        <option class="search__select-option" value="2">
-          2
-        </option>
-      </select>
-    </form>
-    <nav class="header__list">
-      <button class="header__item">
-        <span class="header__item-title" id="add-new-student">New Student</span>
-        <svg class="header__item-icon" role="icon" aria-label="plus icon">
-          <use xlink:href="assets/icons.svg#icon-plus"></use>
-        </svg>
-      </button>
-      <button class="header__item " id="delete-all">
-        <span class="header__item-title">Delete All</span>
-        <svg class="header__item-icon" role="icon" aria-label="trash icon">
-          <use xlink:href="assets/icons.svg#icon-bin2"></use>
-        </svg>
-      </button>
-      <button class="header__item">
-        <span class="header__item-title">Download</span>
-        <svg class="header__item-icon" role="icon" aria-label="download icon">
-          <use xlink:href="assets/icons.svg#icon-download3"></use>
-        </svg>
-      </button>
-    </nav>
-  </header>
-  <main class="students__container">
-
-    <table class="students__table">
-      <thead class="students__table__header">
-        <tr class="students__table__row">
-          <th class="students__table__cell" data-cell="id">ID</th>
-          <th class="students__table__cell" data-cell="name">Name</th>
-          <th class="students__table__cell " data-cell="email">Email</th>
-          <th class="students__table__cell" data-cell="grade">Grade</th>
-          <th class="students__table__cell" data-cell="guardian contact">Guardian Contact</th>
-          <th class="students__table__cell" data-cell="actions">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="students__table__body">
-
-      </tbody>
-    </table>
-  </main>
-
-</body>
-
+    <script type="module" src="./src/main.js"></script>
+  </body>
 </html>

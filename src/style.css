@@ -250,7 +250,7 @@ body {
   gap: calc(var(--font-base) * 2);
 }
 .popup__new-student__form .popup__new-student__form__input {
-  padding: calc(var(--font-base) * 1);
+  padding: var(--font-base);
   border: none;
   outline: none;
   background-color: var(--color-primary);
@@ -258,16 +258,18 @@ body {
 .popup__new-student__form__button--toggle , .popup__delete-all__button--delete {
   background-color: var(--color-secondary);
   color: var(--background-color);
-  padding: calc(var(--font-base) * 1) calc(var(--font-base) * 2);
+  padding: var(--font-base) calc(var(--font-base) * 2);
 }
 .popup__new-student__form__button--cancel , .popup__delete-all__button--cancel {
   background-color: var(--color-tertiary);
   color: var(--background-color);
-  padding: calc(var(--font-base) * 1) calc(var(--font-base) * 2);
+  padding: var(--font-base) calc(var(--font-base) * 2);
 }
 .students__table__cell-email{
   text-transform: none;
 }
+
+
 .hidden {
   transform: scale(0);
   visibility: hidden;
