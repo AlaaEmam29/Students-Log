@@ -1,3 +1,6 @@
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+
 const handleSetLocalStorage = (key, value) => {
     if (!key || !value) return;
     return localStorage.setItem(key, JSON.stringify(value));
@@ -49,6 +52,10 @@ const popupAddNewStudent = document.querySelector('.popup__new-student');
 const closeAddNewStudentBtn = document.querySelector('.popup__new-student__close');
 const AddNewStudentForm = document.querySelector('.popup__new-student__form');
 const toggleNewStudentForm = document.querySelector('.popup__new-student__form__button--toggle');
+const downloadTableBtn = document.querySelector("#download-btn")
+const dropdownDownloadAll = document.querySelector(".dropdown__download-all")
+const csvBtn = document.querySelector("#csv-btn");
+const pdfBtn = document.querySelector("#pdf-btn");
 
 let isEditFlag = false
 let editIndex = 0
@@ -118,6 +125,8 @@ const createRowTable = (index, student) => {
         const row = e.target.closest(".students__table__row")
         const studentId = Number(row.dataset.row) 
         students.splice(studentId , 1)
+        //sometime bug happen here when i delete not delete correct 
+        // console.log(students , "students" , studentId)
         deleteRowTable(row)
         handleSetLocalStorage('students', students)
     } )
@@ -261,8 +270,66 @@ const fillEditStudentValue = (student)=>{
 
 
 }
+const handleToggleDropdownDownload = (e)=>{
+    const downloadBtnBounds = e.target.getBoundingClientRect()
+    dropdownDownloadAll.style.position ='absolute'
+    dropdownDownloadAll.style.top = (window.scrollY + downloadBtnBounds.bottom  + 15)   + 'px'
+    dropdownDownloadAll.style.right = 10 + 'px';
+
+    dropdownDownloadAll.classList.toggle("hidden-dropdown")
+}
+const formatDate = ()=>{
+    const today = new Date()
+   return  today.toLocaleDateString("en-US")
+
+}
+const convertJSONToCSV = ()=>{
+    let csv = ''
+    const studentsHeader = Object.keys(students[0])
+    csv += studentsHeader.join(", ") + '\n';
+    students.forEach((studentRow)=>{
+        let data = studentsHeader.map(header=>JSON.stringify(studentRow[header]).replaceAll('"' , '')).join(", ")
+        csv += data + '\n';
+    })
+    return csv
+}
+const convertJSONToPDF = ()=>{
+    const doc = new jsPDF();
+    const studentsHeader = Object.keys(students[0])
+    const columns = studentsHeader.map(header=>({header  , dataKey:header}))
+    doc.autoTable({
+        columns,
+        body: students,
+        margin: { top: 10 },
+        styles: { overflow: 'linebreak' }
+
+    })
+    doc.save(`students-${formatDate()}.pdf`)
+}
+const handleDownloadCSVFile =(e)=>{
+  const studentCSV =   convertJSONToCSV()
+  const blob = new Blob([studentCSV], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+const link = document.createElement("a")
+link.href = url
+link.download = `students-${formatDate()}.csv`
+link.style.display='none'
+document.body.appendChild(link);
+link.click();
+    dropdownDownloadAll.classList.toggle("hidden-dropdown")
+
+}
+const handleDownloadPDFFile =(e)=>{
+    convertJSONToPDF()
+    dropdownDownloadAll.classList.toggle("hidden-dropdown")
+
+}
+
 addNewStudentBtn.addEventListener('click', handleAddNewStudentBtnClick)
 closeAddNewStudentBtn.addEventListener('click', handleCloseBtnAddNewStudent)
 deleteAllBtnStudents.addEventListener("click", handleDeleteAllBtnStudents)
 AddNewStudentForm.addEventListener('submit', handleSubmitNewStudentForm)
 
+downloadTableBtn.addEventListener("click" , handleToggleDropdownDownload)
+csvBtn.addEventListener("click" , handleDownloadCSVFile)
+pdfBtn.addEventListener("click" , handleDownloadPDFFile)

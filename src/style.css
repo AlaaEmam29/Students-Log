@@ -268,7 +268,56 @@ body {
 .students__table__cell-email{
   text-transform: none;
 }
+#download-btn{
+  position: relative;
+}
+.dropdown__download-all{
+  background-color: var(--background-color);
+  color: var(--main-font-color);
+  box-shadow: 0px 0px 1rem rgba(93, 95, 239, 0.5);
+  padding-top: var(--font-base);
+  padding-bottom: var(--font-base);
 
+  max-width: 20rem;
+  width: 100%;
+  z-index: 9999;
+  border-radius: calc(var(--font-base) * 0.5)
+}
+.dropdown__list__download-all{
+  display: flex;
+  flex-direction: column;
+  gap: var(--font-base);
+}
+.dropdown__item__download{
+all: unset;
+  padding: var(--font-base) calc(var(--font-base) * 2);
+    transition: all 0.4s;
+    position: relative;
+text-transform: uppercase;
+font-weight: 500;
+    cursor: pointer;
+}
+.dropdown__item__download::before{
+  content: "";
+  width: 0px;
+  height: 100%;
+  position: absolute;
+  background-color: var(--color-secondary);
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+.dropdown__item__download:hover{
+  color: var(--color-primary);
+
+}
+.dropdown__item__download:hover::before{
+  width: 100%;
+}
+.hidden-dropdown{
+  display: none;
+}
 
 .hidden {
   transform: scale(0);
