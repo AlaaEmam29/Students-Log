@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap');
 :root {
   --background-color: #ffffff;
   --main-font-color: #000;
@@ -26,18 +26,17 @@ body {
   box-sizing: border-box;
   background: var(--background-color);
   min-height: 100dvh;
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-size: calc(var(--font-base) * 1.5);
   color: var(--main-font-color);
   text-transform: capitalize;
 }
-.button{
+.button {
   border: none;
   outline: none;
   cursor: pointer;
-
 }
-.rounded-sm{
+.rounded-sm {
   border-radius: 5px;
 }
 .header {
@@ -74,7 +73,7 @@ body {
   flex-basis: 35%;
   text-indent: var(--font-base);
   appearance: none;
-  background-image: url("./assets/arrow-down-sign-to-navigate.png");
+  background-image: url('./assets/arrow-down-sign-to-navigate.png');
   background-repeat: no-repeat;
   background-position: right var(--font-base) top 50%;
   background-size: var(--font-base) auto;
@@ -156,7 +155,7 @@ body {
 }
 
 .students__table__cell:not(:first-child):after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0%;
   top: 5%;
@@ -239,7 +238,6 @@ body {
   justify-content: flex-end;
 }
 
-
 .popup__new-student {
   max-width: 50rem;
   width: 100%;
@@ -255,23 +253,25 @@ body {
   outline: none;
   background-color: var(--color-primary);
 }
-.popup__new-student__form__button--toggle , .popup__delete-all__button--delete {
+.popup__new-student__form__button--toggle,
+.popup__delete-all__button--delete {
   background-color: var(--color-secondary);
   color: var(--background-color);
   padding: var(--font-base) calc(var(--font-base) * 2);
 }
-.popup__new-student__form__button--cancel , .popup__delete-all__button--cancel {
+.popup__new-student__form__button--cancel,
+.popup__delete-all__button--cancel {
   background-color: var(--color-tertiary);
   color: var(--background-color);
   padding: var(--font-base) calc(var(--font-base) * 2);
 }
-.students__table__cell-email{
+.students__table__cell-email {
   text-transform: none;
 }
-#download-btn{
+#download-btn {
   position: relative;
 }
-.dropdown__download-all{
+.dropdown__download-all {
   background-color: var(--background-color);
   color: var(--main-font-color);
   box-shadow: 0px 0px 1rem rgba(93, 95, 239, 0.5);
@@ -281,24 +281,24 @@ body {
   max-width: 20rem;
   width: 100%;
   z-index: 9999;
-  border-radius: calc(var(--font-base) * 0.5)
+  border-radius: calc(var(--font-base) * 0.5);
 }
-.dropdown__list__download-all{
+.dropdown__list__download-all {
   display: flex;
   flex-direction: column;
   gap: var(--font-base);
 }
-.dropdown__item__download{
-all: unset;
+.dropdown__item__download {
+  all: unset;
   padding: var(--font-base) calc(var(--font-base) * 2);
-    transition: all 0.4s;
-    position: relative;
-text-transform: uppercase;
-font-weight: 500;
-    cursor: pointer;
+  transition: all 0.4s;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
 }
-.dropdown__item__download::before{
-  content: "";
+.dropdown__item__download::before {
+  content: '';
   width: 0px;
   height: 100%;
   position: absolute;
@@ -308,14 +308,13 @@ font-weight: 500;
   z-index: -1;
   transition: all 0.4s;
 }
-.dropdown__item__download:hover{
+.dropdown__item__download:hover {
   color: var(--color-primary);
-
 }
-.dropdown__item__download:hover::before{
+.dropdown__item__download:hover::before {
   width: 100%;
 }
-.hidden-dropdown{
+.hidden-dropdown {
   display: none;
 }
 
@@ -371,7 +370,7 @@ font-weight: 500;
   }
 
   .students__table__body .students__table__cell::before {
-    content: attr(data-cell) " : ";
+    content: attr(data-cell) ' : ';
     font-weight: bold;
     padding-right: calc(var(--font-base) * 2);
   }
