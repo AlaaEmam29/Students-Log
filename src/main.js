@@ -18,9 +18,11 @@ const handleRemoveLocalStorage = (key) => {
   return localStorage.removeItem(key)
 }
 let students = []
+let grades = {}
 
 if (handleGetLocalStorage('students')) {
   students = handleGetLocalStorage('students')
+  grades = handleGetLocalStorage('grades')
 } else {
   students = [
     {
@@ -36,7 +38,13 @@ if (handleGetLocalStorage('students')) {
       graduation_contact: '+1-613-555-6677'
     }
   ]
-
+  const gradesList = students
+    .map((student) => student.grade)
+    .sort((a, b) => a - b)
+  gradesList.forEach((grade) => {
+    grades[grade] = 1
+  })
+  handleSetLocalStorage('grades', grades)
   handleSetLocalStorage('students', students)
 }
 
@@ -66,6 +74,7 @@ const dropdownDownloadAll = document.querySelector('.dropdown__download-all')
 const csvBtn = document.querySelector('#csv-btn')
 const pdfBtn = document.querySelector('#pdf-btn')
 const searchForStudent = document.querySelector('.search__input')
+const searchSelectGrade = document.querySelector('.search__select')
 let isEditFlag = false
 let editIndex = 0
 const showModel = (model) => {
@@ -93,6 +102,13 @@ const clearAddNewStudentForm = () => {
   inputs.forEach((input) => {
     input.value = ''
   })
+}
+const initSelectGrades = (value = 'All grades') => {
+  searchSelectGrade.innerHTML = ''
+  searchSelectGrade.innerHTML = `
+  <option class="search__select-option" value="all">
+  ${value}
+  </option>`
 }
 const handleAddNewStudentBtnClick = () => {
   showModel(popupAddNewStudent)
@@ -124,10 +140,18 @@ overlay.addEventListener('click', () => {
 const deleteRowTable = (row) => {
   row.remove()
 }
+const deleteSelectGrade = (grade) => {
+  const options = searchSelectGrade.querySelectorAll('option')
+  options.forEach((option) => {
+    if (Number(option.value) === grade) {
+      option.remove()
+    }
+  })
+}
 const createRowTable = (index, student) => {
   const row = document.createElement('tr')
-  row.className = 'students__table__row'
   row.setAttribute('data-row', index)
+  row.className = 'students__table__row'
   row.innerHTML = `
     <td class='students__table__cell' data-cell='id'>${index + 1}</td>
     <td class='students__table__cell' data-cell='name'>${student.name}</td>
@@ -139,25 +163,36 @@ const createRowTable = (index, student) => {
       student.graduation_contact
     }</td>
     <td class='students__table__cell' data-cell='actions'>
-    <button class='students__table__cell-button--edit button'>Edit</button>
+    <button 
+    data-editId='${index}'
+    class='students__table__cell-button--edit button'>Edit</button>
     <span class='cell__slash'>/</span>
-            <button class='students__table__cell-button--delete button'>Delete</button>
+            <button 
+            data-deleteId='${index}'
+            class='students__table__cell-button--delete button'>Delete</button>
         </td>
     `
+
   const deleteBtn = row.querySelector('.students__table__cell-button--delete')
   const editBtn = row.querySelector('.students__table__cell-button--edit')
   deleteBtn.addEventListener('click', (e) => {
-    const row = e.target.closest('.students__table__row')
-    const studentId = Number(row.dataset.row)
+    const studentId = Number(e.target.dataset.deleteid)
+    if (studentId === undefined || studentId === null) return
     students.splice(studentId, 1)
     deleteRowTable(row)
+    const grade = Number(student.grade)
+    grades[grade] -= 1
+    if (grades[grade] === 0) {
+      deleteSelectGrade(grade)
+      delete grades[grade]
+    }
     handleSetLocalStorage('students', students)
+    handleSetLocalStorage('grades', grades)
   })
   editBtn.addEventListener('click', (e) => {
     isEditFlag = true
-    const row = e.target.closest('.students__table__row')
-
-    const studentId = Number(row.dataset.row)
+    const studentId = Number(e.target.dataset.editid)
+    if (studentId === undefined || studentId === null) return
     const currentStudent = students[studentId]
     editIndex = studentId
     showModel(popupAddNewStudent)
@@ -179,21 +214,49 @@ const renderTable = (students) => {
   tableBody.innerHTML = ''
   tableBody.appendChild(fragment)
 }
+const createSelectSearchGrade = (grade) => {
+  const option = document.createElement('option')
+  option.className = 'search__select-option'
+  option.setAttribute('value', grade)
+  option.textContent = grade
+  return option
+}
+const renderSelectGrade = (grades) => {
+  const fragment = document.createDocumentFragment()
+  const gradesList = Object.keys(grades)
+  gradesList.forEach((grade) => {
+    const row = createSelectSearchGrade(grade)
+    fragment.appendChild(row)
+  })
+
+  searchSelectGrade.appendChild(fragment)
+}
 const renderRowTable = (index, student) => {
   const fragment = document.createDocumentFragment()
   const row = createRowTable(index, student)
   fragment.appendChild(row)
   tableBody.appendChild(fragment)
 }
+const renderOptionSelectGrade = (grade) => {
+  const fragment = document.createDocumentFragment()
+  const option = createSelectSearchGrade(grade)
+  fragment.appendChild(option)
 
+  searchSelectGrade.appendChild(fragment)
+}
 document.addEventListener('DOMContentLoaded', () => {
   renderTable(students)
+  renderSelectGrade(grades)
 })
 
 const handleDeleteAllBtnStudents = () => {
   students.length = 0
+  grades = {}
   tableBody.innerHTML = ''
+  initSelectGrades()
   handleRemoveLocalStorage('students')
+  handleRemoveLocalStorage('grades')
+
   hideModel(popupDeleteAll)
 }
 const validationGraduationContact = (input, student) => {
@@ -227,6 +290,17 @@ const addNewStudent = (student, keys) => {
     hideModel(popupAddNewStudent)
 
     renderRowTable(students.length - 1, student)
+    const grade = Number(student.grade)
+    if (!grades[grade]) {
+      grades[grade] = 1
+    } else {
+      grades[grade] += 1
+    }
+    handleSetLocalStorage('grades', grades)
+
+    if (grades[grade] === 1) {
+      renderOptionSelectGrade(grade)
+    }
   } else {
     // eslint-disable-next-line no-alert
     alert('please fill all inputs')
@@ -247,13 +321,31 @@ const editStudent = (inputs) => {
   const keys = Object.keys(currentStudent)
   if (keys.length === 4) {
     const row = document.querySelector(`[data-row='${editIndex}']`)
+    const prevStudentData = students[editIndex]
     students[editIndex] = currentStudent
     const currentStudentRow = createRowTable(editIndex, currentStudent)
     row.replaceWith(currentStudentRow)
     hideModel(popupAddNewStudent)
     handleSetLocalStorage('students', students)
+    const prevsGrade = Number(prevStudentData.grade)
+    const currentGrade = Number(currentStudent.grade)
+    if (prevsGrade !== currentGrade) {
+      grades[prevsGrade] -= 1
+      if (grades[prevsGrade] === 0) {
+        deleteSelectGrade(prevsGrade)
+        delete grades[prevsGrade]
+      }
+      if (!grades[currentGrade]) {
+        grades[currentGrade] = 1
+        renderOptionSelectGrade(currentGrade)
+      } else {
+        grades[currentGrade] += 1
+      }
+    }
+    handleSetLocalStorage('grades', grades)
   } else {
     // eslint-disable-next-line no-alert
+    console.log(keys, '+++')
     alert('please fill all inputs')
   }
 }
@@ -303,15 +395,12 @@ const convertJSONToCSV = () => {
 }
 const convertJSONToPDF = () => {
   const doc = new jsPDF()
-  autoTable(
-    doc,
-    {
-      html: '.students__table',
-      styles: { overflow: 'linebreak' },
-      margin: { top: 10 },
-      theme: 'grid'
-    }
-  )
+  autoTable(doc, {
+    html: '.students__table',
+    styles: { overflow: 'linebreak' },
+    margin: { top: 10 },
+    theme: 'grid'
+  })
   doc.save(`students-${formatDate()}.pdf`)
 }
 const handleDownloadCSVFile = () => {
@@ -347,14 +436,18 @@ const handleFilterStudents = (e) => {
   })
   renderTable(filterStudents)
 }
-
+const filterGrades = (e) => {
+  const filterStudents = students.filter((student) => {
+    return Number(student.grade) === Number(e.target.value)
+  })
+  renderTable(filterStudents)
+}
 addNewStudentBtn.addEventListener('click', handleAddNewStudentBtnClick)
 closeAddNewStudentBtn.addEventListener('click', handleCloseBtnAddNewStudent)
 deleteAllBtnStudents.addEventListener('click', handleDeleteAllBtnStudents)
 AddNewStudentForm.addEventListener('submit', handleSubmitNewStudentForm)
-
 downloadTableBtn.addEventListener('click', handleToggleDropdownDownload)
 csvBtn.addEventListener('click', handleDownloadCSVFile)
 pdfBtn.addEventListener('click', handleDownloadPDFFile)
-
 searchForStudent.addEventListener('keyup', handleFilterStudents)
+searchSelectGrade.addEventListener('change', filterGrades)

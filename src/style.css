@@ -63,6 +63,7 @@ body {
   border: none;
   outline: none;
 }
+
 .search .search__input {
   flex-basis: 65%;
   padding-left: var(--font-base);
