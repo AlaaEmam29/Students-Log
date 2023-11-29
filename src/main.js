@@ -259,28 +259,12 @@ const handleDeleteAllBtnStudents = () => {
 
   hideModel(popupDeleteAll)
 }
-const validationGraduationContact = (input, student) => {
-  if (input.value.length !== 10) {
-    input.classList.add('popup__new-student__input--error')
-  } else {
-    input.classList.remove('popup__new-student__input--error')
-    const formatNumber = `+1-${input.value.slice(0, 3)}-${input.value.slice(
-      3,
-      6
-    )}-${input.value.slice(6, 10)}`
-    student[input.name] = formatNumber
-  }
-}
 const validationAddNewStudentForm = (input, student) => {
   if (input.value === '') {
     input.classList.add('popup__new-student__input--error')
   } else {
     input.classList.remove('popup__new-student__input--error')
-    if (input.name === 'graduation_contact') {
-      validationGraduationContact(input, student)
-    } else {
-      student[input.name] = input.value
-    }
+    student[input.name] = input.value
   }
 }
 const addNewStudent = (student, keys) => {
@@ -310,13 +294,7 @@ const editStudent = (inputs) => {
   const currentStudent = {}
   inputs.forEach((input) => {
     input.classList.remove('popup__new-student__input--error')
-    if (input.name === 'graduation_contact') {
-      const number = input.value.replace(/\D/g, '').slice(1)
-      input.value = number
-      validationGraduationContact(input, currentStudent)
-    } else {
-      currentStudent[input.name] = input.value
-    }
+    currentStudent[input.name] = input.value
   })
   const keys = Object.keys(currentStudent)
   if (keys.length === 4) {
@@ -345,7 +323,6 @@ const editStudent = (inputs) => {
     handleSetLocalStorage('grades', grades)
   } else {
     // eslint-disable-next-line no-alert
-    console.log(keys, '+++')
     alert('please fill all inputs')
   }
 }
