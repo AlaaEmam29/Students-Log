@@ -417,6 +417,10 @@ const filterGrades = (e) => {
   const filterStudents = students.filter((student) => {
     return Number(student.grade) === Number(e.target.value)
   })
+  if (e.target.value === 'all') {
+    renderTable(students)
+    return
+  }
   renderTable(filterStudents)
 }
 addNewStudentBtn.addEventListener('click', handleAddNewStudentBtnClick)
