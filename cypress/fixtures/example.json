@@ -1,0 +1,16 @@
+{
+  "students": [
+    {
+      "name": "zaky aly",
+      "email": "zaky.aly88@gmail.com",
+      "grade": 2,
+      "graduation_contact": "+1-613-111-3344"
+    },
+    {
+      "name": "hossam mourad",
+      "email": "hossam.mourad@example.com",
+      "grade": 1,
+      "graduation_contact": "+1-613-555-6677"
+    }
+  ]
+}

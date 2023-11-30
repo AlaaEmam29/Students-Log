@@ -13,7 +13,7 @@
   <body>
     <div class="overlay hidden"></div>
     <div class="popup__delete-all rounded-sm hidden">
-      <button class="popup__delete-all__close">
+      <button class="popup__delete-all__close" data-test="close-btn-delete-all">
         <svg
           class="popup__delete-all__close-icon"
           role="icon"
@@ -23,21 +23,27 @@
         </svg>
       </button>
       <div class="popup__delete-all__container">
-        <h2 class="popup__delete-all__title">
+        <h2 class="popup__delete-all__title" data-test="delete-all-title">
           Are you sure you want to delete all students?
         </h2>
         <div class="popup__delete-all__buttons">
-          <button class="popup__delete-all__button--cancel rounded-sm button">
+          <button
+            data-test="cancel-btn-delete-all"
+            class="popup__delete-all__button--cancel rounded-sm button"
+          >
             Cancel
           </button>
-          <button class="popup__delete-all__button--delete rounded-sm button">
+          <button
+            data-test="delete-all-btn"
+            class="popup__delete-all__button--delete rounded-sm button"
+          >
             Delete
           </button>
         </div>
       </div>
     </div>
     <div class="popup__new-student rounded-sm hidden">
-      <button class="popup__new-student__close">
+      <button class="popup__new-student__close" data-test="close-btn">
         <svg
           class="popup__new-student__close-icon"
           role="icon"
@@ -55,6 +61,7 @@
             placeholder="Name"
             name="name"
             required
+            data-test="name-input"
           />
           <input
             class="popup__new-student__form__input rounded-sm"
@@ -62,6 +69,7 @@
             placeholder="Email"
             name="email"
             required
+            data-test="email-input"
           />
           <input
             class="popup__new-student__form__input rounded-sm"
@@ -69,6 +77,7 @@
             placeholder="Grade"
             name="grade"
             required
+            data-test="grade-input"
           />
           <input
             class="popup__new-student__form__input rounded-sm"
@@ -77,20 +86,22 @@
             name="graduation_contact"
             minlength="11"
             maxlength="11"
-            pattern="[0-9]*"
             inputmode="numeric"
             required
+            data-test="guardian-contact-input"
           />
           <div class="popup__new-student__form__buttons">
             <button
               type="reset"
               class="popup__new-student__form__button--cancel rounded-sm button"
+              data-test="cancel-btn"
             >
               Cancel
             </button>
             <button
               type="submit"
               class="popup__new-student__form__button--toggle rounded-sm button"
+              data-test="add-student-btn"
             >
               Add Student
             </button>
@@ -105,34 +116,42 @@
       </div>
     </div>
 
-    <header class="header">
-      <h1 class="header__title">Students LOG</h1>
-      <form class="search">
+    <header class="header" data-test="header">
+      <h1 data-test="header-title" class="header__title">Students LOG</h1>
+      <form data-test="search" class="search">
         <input
           class="search__input"
           placeholder="Search Students"
           type="text"
+          name="search"
+          data-test="search-input"
         />
-        <select class="search__select rounded-sm" name="grade">
+        <select
+          data-test="search-select"
+          class="search__select rounded-sm"
+          name="grade"
+        >
           <option class="search__select-option" value="all">All grades</option>
         </select>
       </form>
-      <nav class="header__list">
-        <button class="header__item">
-          <span class="header__item-title" id="add-new-student"
-            >New Student</span
-          >
+      <nav data-test="nav" class="header__list">
+        <button
+          id="add-new-student"
+          data-test="add-new-student"
+          class="header__item"
+        >
+          <span class="header__item-title">New Student</span>
           <svg class="header__item-icon" role="icon" aria-label="plus icon">
             <use xlink:href="./src/assets/icons.svg#icon-plus"></use>
           </svg>
         </button>
-        <button class="header__item" id="delete-all">
+        <button class="header__item" id="delete-all" data-test="delete-all">
           <span class="header__item-title">Delete All</span>
           <svg class="header__item-icon" role="icon" aria-label="trash icon">
             <use xlink:href="./src/assets/icons.svg#icon-bin2"></use>
           </svg>
         </button>
-        <button class="header__item" id="download-btn">
+        <button class="header__item" id="download-btn" data-test="download-btn">
           <span class="header__item-title">Download</span>
           <svg class="header__item-icon" role="icon" aria-label="download icon">
             <use xlink:href="./src/assets/icons.svg#icon-download3"></use>
@@ -140,7 +159,7 @@
         </button>
       </nav>
     </header>
-    <main class="students__container">
+    <main data-test="main" class="students__container">
       <table class="students__table">
         <thead class="students__table__header">
           <tr class="students__table__row">
@@ -154,7 +173,7 @@
             <th class="students__table__cell" data-cell="actions">Actions</th>
           </tr>
         </thead>
-        <tbody class="students__table__body"></tbody>
+        <tbody data-test="tbody-students" class="students__table__body"></tbody>
       </table>
     </main>
 

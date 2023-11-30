@@ -75,6 +75,7 @@ const csvBtn = document.querySelector('#csv-btn')
 const pdfBtn = document.querySelector('#pdf-btn')
 const searchForStudent = document.querySelector('.search__input')
 const searchSelectGrade = document.querySelector('.search__select')
+const titleToggleStudent = document.querySelector('.popup__new-student__title')
 let isEditFlag = false
 let editIndex = 0
 const showModel = (model) => {
@@ -116,6 +117,7 @@ const handleAddNewStudentBtnClick = () => {
   isEditFlag = false
   if (!isEditFlag) {
     toggleNewStudentForm.textContent = 'Add Student'
+    titleToggleStudent.textContent = 'Add New Student'
   }
 }
 const fillEditStudentValue = (student) => {
@@ -198,6 +200,7 @@ const createRowTable = (index, student) => {
     showModel(popupAddNewStudent)
     if (isEditFlag) {
       toggleNewStudentForm.textContent = 'Edit Student'
+      titleToggleStudent.textContent = `Edit ${currentStudent.name} Information`
     }
     fillEditStudentValue(currentStudent)
   })
