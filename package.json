@@ -25,6 +25,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "cy-verify-downloads": "^0.2.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.7.1"
   }

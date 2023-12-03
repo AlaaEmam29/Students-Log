@@ -17,6 +17,7 @@ const handleRemoveLocalStorage = (key) => {
   if (!key) return
   return localStorage.removeItem(key)
 }
+
 let students = []
 let grades = {}
 
@@ -253,12 +254,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 const handleDeleteAllBtnStudents = () => {
+  handleRemoveLocalStorage('students')
+  handleRemoveLocalStorage('grades')
   students.length = 0
   grades = {}
   tableBody.innerHTML = ''
   initSelectGrades()
-  handleRemoveLocalStorage('students')
-  handleRemoveLocalStorage('grades')
 
   hideModel(popupDeleteAll)
 }
