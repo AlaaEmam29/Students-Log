@@ -239,13 +239,7 @@ const renderRowTable = (index, student) => {
   fragment.appendChild(row)
   tableBody.appendChild(fragment)
 }
-const renderOptionSelectGrade = (grade) => {
-  const fragment = document.createDocumentFragment()
-  const option = createSelectSearchGrade(grade)
-  fragment.appendChild(option)
 
-  searchSelectGrade.appendChild(fragment)
-}
 document.addEventListener('DOMContentLoaded', () => {
   renderTable(students)
   renderSelectGrade(students)
