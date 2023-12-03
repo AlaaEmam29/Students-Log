@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,4 +27,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
+
+    # Cypress-specific steps
+    - name: Install Cypress binary
+      run: npx cypress install
+    - name: Run Cypress Tests
+      run: npx cypress run
+
     - run: npm test
