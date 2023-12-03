@@ -23,7 +23,6 @@ let grades = {}
 
 if (handleGetLocalStorage('students')) {
   students = handleGetLocalStorage('students')
-  grades = handleGetLocalStorage('grades')
 } else {
   students = [
     {
@@ -39,13 +38,10 @@ if (handleGetLocalStorage('students')) {
       graduation_contact: '+1-613-555-6677'
     }
   ]
-  const gradesList = students
+  grades = students
     .map((student) => student.grade)
     .sort((a, b) => a - b)
-  gradesList.forEach((grade) => {
-    grades[grade] = 1
-  })
-  handleSetLocalStorage('grades', grades)
+
   handleSetLocalStorage('students', students)
 }
 
@@ -225,10 +221,12 @@ const createSelectSearchGrade = (grade) => {
   option.textContent = grade
   return option
 }
-const renderSelectGrade = (grades) => {
+const renderSelectGrade = (students) => {
+  initSelectGrades()
+  const uniquesGrades = new Set(students.map((student) => Number(student.grade)))
+  grades = [...uniquesGrades].sort((a, b) => a - b)
   const fragment = document.createDocumentFragment()
-  const gradesList = Object.keys(grades)
-  gradesList.forEach((grade) => {
+  grades.forEach((grade) => {
     const row = createSelectSearchGrade(grade)
     fragment.appendChild(row)
   })
@@ -250,7 +248,7 @@ const renderOptionSelectGrade = (grade) => {
 }
 document.addEventListener('DOMContentLoaded', () => {
   renderTable(students)
-  renderSelectGrade(grades)
+  renderSelectGrade(students)
 })
 
 const handleDeleteAllBtnStudents = () => {
@@ -278,17 +276,7 @@ const addNewStudent = (student, keys) => {
     hideModel(popupAddNewStudent)
 
     renderRowTable(students.length - 1, student)
-    const grade = Number(student.grade)
-    if (!grades[grade]) {
-      grades[grade] = 1
-    } else {
-      grades[grade] += 1
-    }
-    handleSetLocalStorage('grades', grades)
-
-    if (grades[grade] === 1) {
-      renderOptionSelectGrade(grade)
-    }
+    renderSelectGrade(students)
   } else {
     // eslint-disable-next-line no-alert
     alert('please fill all inputs')
@@ -303,28 +291,12 @@ const editStudent = (inputs) => {
   const keys = Object.keys(currentStudent)
   if (keys.length === 4) {
     const row = document.querySelector(`[data-row='${editIndex}']`)
-    const prevStudentData = students[editIndex]
     students[editIndex] = currentStudent
     const currentStudentRow = createRowTable(editIndex, currentStudent)
     row.replaceWith(currentStudentRow)
     hideModel(popupAddNewStudent)
     handleSetLocalStorage('students', students)
-    const prevsGrade = Number(prevStudentData.grade)
-    const currentGrade = Number(currentStudent.grade)
-    if (prevsGrade !== currentGrade) {
-      grades[prevsGrade] -= 1
-      if (grades[prevsGrade] === 0) {
-        deleteSelectGrade(prevsGrade)
-        delete grades[prevsGrade]
-      }
-      if (!grades[currentGrade]) {
-        grades[currentGrade] = 1
-        renderOptionSelectGrade(currentGrade)
-      } else {
-        grades[currentGrade] += 1
-      }
-    }
-    handleSetLocalStorage('grades', grades)
+    renderSelectGrade(students)
   } else {
     // eslint-disable-next-line no-alert
     alert('please fill all inputs')
