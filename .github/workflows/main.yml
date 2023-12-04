@@ -20,7 +20,7 @@ jobs:
     - name: Run Cypress Tests
       uses: cypress-io/github-action@v6
       with:
-        start: npm start
+        start: npm run dev
         wait-on: 'https://students-log.vercel.app/'
     - uses: actions/upload-artifact@v2
       if: failure()
