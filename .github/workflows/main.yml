@@ -1,0 +1,34 @@
+name: CI
+on: push
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '18'
+    - name: Install Dependencies
+      run: npm install
+    # If you still need to start a local server, keep this step
+    - name: Start Server
+      run: npm start &
+    # Update the wait-on command to the new URL
+    - name: Wait for server to be up
+      run: npx wait-on https://students-log.vercel.app/
+    - name: Run Cypress Tests
+      uses: cypress-io/github-action@v6
+      with:
+        start: npm start
+        wait-on: 'https://students-log.vercel.app/'
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: cypress-videos
+        path: cypress/videos
