@@ -48,7 +48,6 @@ if (handleGetLocalStorage('students')) {
 const deleteAllBtnContainer = document.querySelector('#delete-all')
 const addNewStudentBtn = document.querySelector('#add-new-student')
 
-const overlay = document.querySelector('.overlay')
 const popupDeleteAll = document.querySelector('.popup__delete-all')
 const closeBtnDeleteAll = document.querySelector('.popup__delete-all__close')
 const cancelBtnDeleteAll = document.querySelector(
@@ -73,30 +72,23 @@ const pdfBtn = document.querySelector('#pdf-btn')
 const searchForStudent = document.querySelector('.search__input')
 const searchSelectGrade = document.querySelector('.search__select')
 const titleToggleStudent = document.querySelector('.popup__new-student__title')
+const dialog = document.querySelector('dialog')
 let isEditFlag = false
 let editIndex = 0
-const showModel = (model) => {
-  model.classList.remove('hidden')
-  overlay.classList.remove('hidden')
-}
-const hideModel = (model) => {
-  model.classList.add('hidden')
-  overlay.classList.add('hidden')
+const hideModel = () => {
+  console.log('click')
+  dialog.addEventListener('close', () => {
+    console.log('close')
+  }
+  )
 }
 const handleDeleteAllBtnContainerClick = () => {
-  showModel(popupDeleteAll)
+  popupDeleteAll.showModal()
 }
-const handleCancelBtnDeleteAllClick = () => {
-  hideModel(popupDeleteAll)
-}
-const handleCloseBtnDeleteAllClick = () => {
-  hideModel(popupDeleteAll)
-}
-const handleCloseBtnAddNewStudent = () => {
-  hideModel(popupAddNewStudent)
-}
+
 const clearAddNewStudentForm = () => {
-  const inputs = AddNewStudentForm.querySelectorAll('input')
+  console.log('clear')
+  const inputs = AddNewStudentForm?.querySelectorAll('input')
   inputs.forEach((input) => {
     input.value = ''
   })
@@ -109,10 +101,10 @@ const initSelectGrades = (value = 'All grades') => {
   </option>`
 }
 const handleAddNewStudentBtnClick = () => {
-  showModel(popupAddNewStudent)
-  clearAddNewStudentForm()
-  isEditFlag = false
+  popupAddNewStudent.showModal()
+
   if (!isEditFlag) {
+    isEditFlag = false
     toggleNewStudentForm.textContent = 'Add Student'
     titleToggleStudent.textContent = 'Add New Student'
   }
@@ -123,18 +115,6 @@ const fillEditStudentValue = (student) => {
     input.value = student[input.name]
   })
 }
-
-cancelBtnDeleteAll.addEventListener('click', handleCancelBtnDeleteAllClick)
-closeBtnDeleteAll.addEventListener('click', handleCloseBtnDeleteAllClick)
-deleteAllBtnContainer.addEventListener(
-  'click',
-  handleDeleteAllBtnContainerClick
-)
-
-overlay.addEventListener('click', () => {
-  hideModel(popupDeleteAll)
-  hideModel(popupAddNewStudent)
-})
 
 const deleteRowTable = (row) => {
   row.remove()
@@ -194,7 +174,8 @@ const createRowTable = (index, student) => {
     if (studentId === undefined || studentId === null) return
     const currentStudent = students[studentId]
     editIndex = studentId
-    showModel(popupAddNewStudent)
+    popupAddNewStudent.showModal()
+
     if (isEditFlag) {
       toggleNewStudentForm.textContent = 'Edit Student'
       titleToggleStudent.textContent = `Edit ${currentStudent.name} Information`
@@ -252,8 +233,6 @@ const handleDeleteAllBtnStudents = () => {
   grades = {}
   tableBody.innerHTML = ''
   initSelectGrades()
-
-  hideModel(popupDeleteAll)
 }
 const validationAddNewStudentForm = (input, student) => {
   if (input.value === '') {
@@ -267,8 +246,6 @@ const addNewStudent = (student, keys) => {
   if (keys.length === 4) {
     students.push(student)
     handleSetLocalStorage('students', students)
-    hideModel(popupAddNewStudent)
-
     renderRowTable(students.length - 1, student)
     renderSelectGrade(students)
   } else {
@@ -288,7 +265,6 @@ const editStudent = (inputs) => {
     students[editIndex] = currentStudent
     const currentStudentRow = createRowTable(editIndex, currentStudent)
     row.replaceWith(currentStudentRow)
-    hideModel(popupAddNewStudent)
     handleSetLocalStorage('students', students)
     renderSelectGrade(students)
   } else {
@@ -300,8 +276,8 @@ const editStudent = (inputs) => {
 const handleSubmitNewStudentForm = (e) => {
   e.preventDefault()
   const student = {}
-  const inputs = AddNewStudentForm.querySelectorAll('input')
-  inputs.forEach((input) => {
+  const inputs = AddNewStudentForm?.querySelectorAll('input')
+  inputs?.forEach((input) => {
     validationAddNewStudentForm(input, student)
   })
   const keys = Object.keys(student)
@@ -312,6 +288,7 @@ const handleSubmitNewStudentForm = (e) => {
   }
 
   clearAddNewStudentForm()
+  popupAddNewStudent.close()
 }
 
 const handleToggleDropdownDownload = (e) => {
@@ -393,8 +370,11 @@ const filterGrades = (e) => {
   }
   renderTable(filterStudents)
 }
+const handleCloseAddNewStudent = () => {
+  popupAddNewStudent?.close()
+}
 addNewStudentBtn.addEventListener('click', handleAddNewStudentBtnClick)
-closeAddNewStudentBtn.addEventListener('click', handleCloseBtnAddNewStudent)
+closeAddNewStudentBtn.addEventListener('click', handleCloseAddNewStudent)
 deleteAllBtnStudents.addEventListener('click', handleDeleteAllBtnStudents)
 AddNewStudentForm.addEventListener('submit', handleSubmitNewStudentForm)
 downloadTableBtn.addEventListener('click', handleToggleDropdownDownload)
@@ -402,3 +382,6 @@ csvBtn.addEventListener('click', handleDownloadCSVFile)
 pdfBtn.addEventListener('click', handleDownloadPDFFile)
 searchForStudent.addEventListener('keyup', handleFilterStudents)
 searchSelectGrade.addEventListener('change', filterGrades)
+closeBtnDeleteAll.addEventListener('click', hideModel)
+cancelBtnDeleteAll.addEventListener('click', hideModel)
+deleteAllBtnContainer.addEventListener('click', handleDeleteAllBtnContainerClick)

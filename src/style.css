@@ -189,6 +189,7 @@ body {
   backdrop-filter: blur(5px);
   transition: var(--translation-effect-fast);
 }
+
 .popup__delete-all,
 .popup__new-student {
   position: fixed;
@@ -196,11 +197,10 @@ body {
 
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-tertiary);
-  padding: calc(var(--font-base) * 2);
   z-index: 11;
-  flex-direction: column;
-  gap: calc(var(--font-base) * 2);
+ 
+  padding: calc(var(--font-base) * 2);
+  border: 1px solid var(--color-tertiary);
   transition: var(--translation-effect-fast);
 }
 .popup__delete-all {
@@ -231,6 +231,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: calc(var(--font-base) * 2);
+  width: 100%;
 }
 .popup__delete-all__buttons,
 .popup__new-student__form__buttons {
@@ -248,7 +249,7 @@ body {
   flex-direction: column;
   gap: calc(var(--font-base) * 2);
 }
-.popup__new-student__form .popup__new-student__form__input {
+.popup__new-student__form__input {
   padding: var(--font-base);
   border: none;
   outline: none;
@@ -327,9 +328,23 @@ body {
   transform: scale(1);
   visibility: visible;
 }
+
 .popup__new-student__form .popup__new-student__input--error {
   border: 1px solid red;
 }
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  transition: var(--translation-effect-fast);
+  height: 100vh;
+  width: 100vw;
+}
+dialog form{
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--font-base) * 2);
+}
+
 @media only screen and (max-width: 75em) {
   /* Q trying to give them equal width but not working the select is taking more space and overflowing the container why? */
   .search .search__input,
