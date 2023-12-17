@@ -9,21 +9,19 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '18'
-    - name: Clear npm cache
-      run: npm cache clean --force
     - name: Install Dependencies
       run: npm install
-    - name: Print debug information (optional)
-      run: cat package.json
+    # If you still need to start a local server, keep this step
     - name: Start Server
       run: npm start &
+    # Update the wait-on command to the new URL
     - name: Wait for server to be up
-      run: npx wait-on http://localhost:5173
+      run: npx wait-on https://students-log.vercel.app/
     - name: Run Cypress Tests
       uses: cypress-io/github-action@v6
       with:
-        start: npm start
-        wait-on: 'http://localhost:5173'
+        start: npm run dev
+        wait-on: 'https://students-log.vercel.app/'
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
