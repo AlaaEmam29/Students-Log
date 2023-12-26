@@ -52,7 +52,9 @@ The 'Student Log' app is a prime example of innovation and efficiency in student
 As a sample of what's possible in educational technology, 'Student Log' offers:
 
 <strong>Optimal Time Utilization:</strong> Focus more on teaching, less on administrative tasks.
+
 <strong>Sample Templates for Quick Setup:</strong> Jumpstart your data management with our ready-to-use templates.
+
 <strong>Practicing the DRY Principle:</strong> A model of efficiency in educational administration.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -63,8 +65,11 @@ As a sample of what's possible in educational technology, 'Student Log' offers:
 
 
 Vanilla JS - For core functionality
+
 Vite - As the build tool
+
 Cypress - For end-to-end testing
+
 Pure CSS - For styling
 
 
