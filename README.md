@@ -40,7 +40,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 <strong>Overview</strong>
 
@@ -52,9 +51,9 @@ The 'Student Log' app is a prime example of innovation and efficiency in student
 
 As a sample of what's possible in educational technology, 'Student Log' offers:
 
-* <strong>Optimal Time Utilization:</strong> Focus more on teaching, less on administrative tasks.
-* <strong>Sample Templates for Quick Setup:</strong> Jumpstart your data management with our ready-to-use templates.
-* <strong>Practicing the DRY Principle:</strong> A model of efficiency in educational administration.
+<strong>Optimal Time Utilization:</strong> Focus more on teaching, less on administrative tasks.
+<strong>Sample Templates for Quick Setup:</strong> Jumpstart your data management with our ready-to-use templates.
+<strong>Practicing the DRY Principle:</strong> A model of efficiency in educational administration.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -63,11 +62,10 @@ As a sample of what's possible in educational technology, 'Student Log' offers:
 ### Built With
 
 
-
-* ![Vanilla JS](#Vanilla-JS)
-* ![Vite](#Vite)
-* ![Cypress](#Cypress)
-* ![Pure CSS](#Pure-CSS)
+Vanilla JS - For core functionality
+Vite - As the build tool
+Cypress - For end-to-end testing
+Pure CSS - For styling
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -83,7 +81,7 @@ This section provides instructions on how to set up the 'Student Log' app locall
 ### Prerequisites
 
 Before you begin, ensure you have npm installed on your system. If not, install it as follows:
-* npm
+ npm
   ```sh
   npm install npm@latest -g
   ```
@@ -91,15 +89,15 @@ Before you begin, ensure you have npm installed on your system. If not, install 
 ### Installation
 
 Here's a step-by-step guide on how to install and set up 'Student Log':
-1. Clone the repo
+ Clone the repo
    ```sh
    git clone https://github.com/AlaaEmam29/Students-Log
    ```
-2. Install NPM packages
+ Install NPM packages
    ```sh
    npm install
    ```
-3. Run the app
+  Run the app
    ```sh
    npm run dev
    ```
