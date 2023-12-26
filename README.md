@@ -5,21 +5,12 @@
 
 
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/AlaaEmam29/Students-Log">
-  <video src="demo.webm" controls width="320" height="240" alt="Project Demo Video">
-      Your browser does not support the video tag.
-    </video>
-  </a>
 
-  <!-- Other content... -->
-</div>
 <br />
 
 <div align="center">
   <a href="https://github.com/AlaaEmam29/Students-Log">
-   <h1>Student Logo</h1>
+   <h1>Students Logo</h1>
   </a>
 
 
@@ -45,13 +36,13 @@
 
 <strong>Overview</strong>
 
-The 'Student Log' app is a prime example of innovation and efficiency in student data management. Designed to showcase the potential of modern educational technology, it sets a new standard in user-centric and functionality-rich data management systems.
+The 'Students Log' app is a prime example of innovation and efficiency in student data management. Designed to showcase the potential of modern educational technology, it sets a new standard in user-centric and functionality-rich data management systems.
 
 
 
-<strong>Why Choose Student Log?</strong>
+<strong>Why Choose Students Log?</strong>
 
-As a sample of what's possible in educational technology, 'Student Log' offers:
+As a sample of what's possible in educational technology, 'Students Log' offers:
 
 <strong>Optimal Time Utilization:</strong> Focus more on teaching, less on administrative tasks.
 
@@ -82,7 +73,7 @@ Pure CSS - For styling
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This section provides instructions on how to set up the 'Student Log' app locally. To get a local copy up and running, follow these simple steps.
+This section provides instructions on how to set up the 'Students Log' app locally. To get a local copy up and running, follow these simple steps.
 
 
 ### Prerequisites
@@ -95,7 +86,7 @@ Before you begin, ensure you have npm installed on your system. If not, install 
 
 ### Installation
 
-Here's a step-by-step guide on how to install and set up 'Student Log':
+Here's a step-by-step guide on how to install and set up 'Students Log':
  Clone the repo
    ```sh
    git clone https://github.com/AlaaEmam29/Students-Log
