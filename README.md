@@ -8,7 +8,9 @@
 <br />
 <div align="center">
   <a href="https://github.com/AlaaEmam29/Students-Log">
-    <img src="/demo.webm" alt="Project Logo Demo">
+  <video src="demo.webm" controls width="320" height="240" alt="Project Demo Video">
+      Your browser does not support the video tag.
+    </video>
   </a>
 
   <!-- Other content... -->
