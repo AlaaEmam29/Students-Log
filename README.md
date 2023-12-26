@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AlaaEmam29/Students-Log">
-    <img src="/assets/demo.webm" alt="Project Logo Demo">
+    <img src="../src/assets/demo.webm" alt="Project Logo Demo">
   </a>
 
   <!-- Other content... -->
