@@ -50,7 +50,6 @@ As a sample of what's possible in educational technology, 'Students Log' offers:
 
 <strong>Practicing the DRY Principle:</strong> A model of efficiency in educational administration.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -66,7 +65,6 @@ Cypress - For end-to-end testing
 Pure CSS - For styling
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -101,7 +99,6 @@ Here's a step-by-step guide on how to install and set up 'Students Log':
    ```
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -115,5 +112,4 @@ Your Name - [@Alaa Emam](https://www.linkedin.com/in/alaa-emam-mohamed/) - alaa.
 Project Link: 
 [https://github.com/AlaaEmam29/Students-Log](https://github.com/AlaaEmam29/Students-Log)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
