@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 
-
 interface ExampleFixture {
   students: Array<{
     name: string

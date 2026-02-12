@@ -7,7 +7,7 @@ interface Student {
   grade: number
   graduation_contact: string
 }
-const handleSetLocalStorage = (key: string, value:Student[]) => {
+const handleSetLocalStorage = (key: string, value: Student[]) => {
   if (!key || !value) return
   return localStorage.setItem(key, JSON.stringify(value))
 }
@@ -17,7 +17,7 @@ const handleGetLocalStorage = (key: string) => {
   if (item === null) return null
   return JSON.parse(item)
 }
-const handleRemoveLocalStorage = (key) => {
+const handleRemoveLocalStorage = (key:string | null) => {
   if (!key) return
   return localStorage.removeItem(key)
 }
@@ -71,7 +71,7 @@ const toggleNewStudentForm: HTMLButtonElement | null = document.querySelector(
 )
 const downloadTableBtn: HTMLButtonElement | null = document.querySelector('#download-btn')
 const dropdownDownloadAll = document.querySelector('.dropdown__download-all')
-const csvBtn: HTMLButtonElement | null   = document.querySelector('#csv-btn')
+const csvBtn: HTMLButtonElement | null = document.querySelector('#csv-btn')
 const pdfBtn: HTMLButtonElement | null = document.querySelector('#pdf-btn')
 const searchForStudent: HTMLInputElement | null = document.querySelector('.search__input')
 const searchSelectGrade: HTMLSelectElement | null = document.querySelector('.search__select')
@@ -120,9 +120,12 @@ const handleAddNewStudentBtnClick = () => {
 const fillEditStudentValue = (student: Student) => {
   if (!AddNewStudentForm) return
   const inputs = AddNewStudentForm.querySelectorAll('input')
-  if (!inputs) return
   inputs.forEach((input) => {
-    input.value = student[input.name]
+    if (input.name in student) {
+      input.value = String((student as any)[input.name] ?? "")
+    } else {
+      input.value = ""
+    }
   })
 }
 
@@ -138,19 +141,17 @@ const deleteSelectGrade = (grade: number) => {
     }
   })
 }
-const createRowTable = (index, student) => {
+const createRowTable = (index: number, student: Student) => {
   const row = document.createElement('tr')
-  row.setAttribute('data-row', index)
+  row.setAttribute('data-row', index.toString())
   row.className = 'students__table__row'
   row.innerHTML = `
     <td class='students__table__cell' data-cell='id'>${index + 1}</td>
     <td class='students__table__cell' data-cell='name'>${student.name}</td>
-    <td class='students__table__cell students__table__cell-email' data-cell='email'>${
-      student.email
+    <td class='students__table__cell students__table__cell-email' data-cell='email'>${student.email
     }</td>
     <td class='students__table__cell' data-cell='grade'>${student.grade}</td>
-    <td class='students__table__cell' data-cell='guardian contact'>${
-      student.graduation_contact
+    <td class='students__table__cell' data-cell='guardian contact'>${student.graduation_contact
     }</td>
     <td class='students__table__cell' data-cell='actions'>
     <button 
@@ -167,7 +168,7 @@ const createRowTable = (index, student) => {
   const editBtn: HTMLButtonElement | null = row.querySelector('.students__table__cell-button--edit')
   if (!deleteBtn) return
   if (!editBtn) return
-  
+
   deleteBtn.addEventListener('click', (e: any) => {
     const studentId = Number(e.target.dataset.deleteid)
     if (studentId === undefined || studentId === null) return
@@ -214,11 +215,11 @@ const renderTable = (students: Student[]) => {
   tableBody.innerHTML = ''
   tableBody.appendChild(fragment)
 }
-const createSelectSearchGrade = (grade) => {
+const createSelectSearchGrade = (grade: number) => {
   const option = document.createElement('option')
   option.className = 'search__select-option'
-  option.setAttribute('value', grade)
-  option.textContent = grade
+  option.setAttribute('value', grade.toString())
+  option.textContent = grade.toString()
   return option
 }
 const renderSelectGrade = (students: Student[]) => {
@@ -263,11 +264,13 @@ const validationAddNewStudentForm = (input: HTMLInputElement, student: Student) 
   if (input.value === '') {
     input.classList.add('popup__new-student__input--error')
   } else {
-    input.classList.remove('popup__new-student__input--error')
-    student[input.name] = input.value
+    input?.classList.remove('popup__new-student__input--error')
+    if (input.name in student) {
+      (student as any)[input.name] = input.value
+    }
   }
 }
-const addNewStudent = (student, keys) => {
+const addNewStudent = (student: Student, keys: string[]) => {
   if (keys.length === 4) {
     students.push(student)
     handleSetLocalStorage('students', students)
@@ -281,16 +284,18 @@ const addNewStudent = (student, keys) => {
 const editStudent = (inputs: any) => {
   if (!inputs) return
   const currentStudent = {}
-  inputs.forEach((input) => {
+  inputs.forEach((input:any) => {
     input.classList.remove('popup__new-student__input--error')
-    currentStudent[input.name] = input.value
+    if (input.name in currentStudent) {
+      (currentStudent as any)[input.name] = input.value
+    }
   })
   const keys = Object.keys(currentStudent)
   if (keys.length === 4) {
     const row = document.querySelector(`[data-row='${editIndex}']`)
     if (!row) return
     students[editIndex] = currentStudent as Student
-    const currentStudentRow = createRowTable(editIndex, currentStudent)
+    const currentStudentRow = createRowTable(editIndex, currentStudent as Student)
     if (!currentStudentRow) return
     row.replaceWith(currentStudentRow)
     handleSetLocalStorage('students', students)
@@ -301,7 +306,7 @@ const editStudent = (inputs: any) => {
   }
 }
 
-const handleSubmitNewStudentForm = (e) => {
+const handleSubmitNewStudentForm = (e:any) => {
   e.preventDefault()
   const student: Student = {
     name: '',
@@ -326,14 +331,13 @@ const handleSubmitNewStudentForm = (e) => {
   popupAddNewStudent?.close()
 }
 
-const handleToggleDropdownDownload = (e) => {
+const handleToggleDropdownDownload = (e:any) => {
   if (!dropdownDownloadAll) return
   const downloadBtnBounds = e.target.getBoundingClientRect()
   if (!dropdownDownloadAll) return
   if (!(dropdownDownloadAll instanceof HTMLElement)) return
   dropdownDownloadAll.style.position = 'absolute'
-  dropdownDownloadAll.style.top = `${
-    window.scrollY + downloadBtnBounds.bottom + 15}px`
+  dropdownDownloadAll.style.top = `${window.scrollY + downloadBtnBounds.bottom + 15}px`
   dropdownDownloadAll.style.right = `${10}px`
   dropdownDownloadAll.classList.toggle('hidden-dropdown')
 }
@@ -350,11 +354,14 @@ const convertJSONToCSV = () => {
   csv += `${studentsHeader.join(', ')}\n`
   students.forEach((studentRow) => {
     const data = studentsHeader
-      .map((header) => JSON.stringify(studentRow[header]).replaceAll('"', ''))
-      .join(', ')
-    csv += `${data}\n`
-  })
-  return csv
+      .map((header) => {
+        const value = (studentRow as any)[header];
+        return JSON.stringify(value).replace(/"/g, '');
+      })
+      .join(', ');
+    csv += `${data}\n`;
+  });
+  return csv;
 }
 const convertJSONToPDF = () => {
   const doc = new JSPDF()
@@ -389,7 +396,7 @@ const handleDownloadPDFFile = () => {
 // is render all table and print dom every time when user search for student is good idea ?
 // is there is another way for dom manipulation ?
 // for small app like this should i use debounce  ?
-const handleFilterStudents = (e) => {
+const handleFilterStudents = (e:any) => {
   const { value } = e.target
   if (!value) {
     renderTable(students)
@@ -403,7 +410,7 @@ const handleFilterStudents = (e) => {
   })
   renderTable(filterStudents)
 }
-const filterGrades = (e) => {
+const filterGrades = (e:any) => {
   const filterStudents = students.filter((student) => {
     return Number(student.grade) === Number(e.target.value)
   })

@@ -21,7 +21,7 @@ jobs:
         run: sleep 10
 
       - name: Run ESLint
-        run: npm run lint --quiet
+        run: npm run lint -- --max-warnings -1
       - name: Run Prettier
         run: npm run format
       - name: Run TypeScript

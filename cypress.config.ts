@@ -6,7 +6,7 @@ const { verifyDownloadTasks } = pkg
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:5173',
-    setupNodeEvents(on, config) {
+    setupNodeEvents (on, _config) {
       on('task', {
         verifyDownloadTasks
       })
