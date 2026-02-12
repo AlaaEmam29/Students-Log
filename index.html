@@ -13,51 +13,52 @@
   <body>
     <dialog class="popup__delete-all rounded-sm">
       <form method="dialog">
-
-      <button class="popup__delete-all__close" data-test="close-btn-delete-all">
-        <svg
-          class="popup__delete-all__close-icon"
-          role="icon"
-          aria-label="close icon"
+        <button
+          class="popup__delete-all__close"
+          data-test="close-btn-delete-all"
         >
-          <use xlink:href="./src/assets/icons.svg#icon-cross"></use>
-        </svg>
-      </button>
-      <div class="popup__delete-all__container">
-        <h2 class="popup__delete-all__title" data-test="delete-all-title">
-          Are you sure you want to delete all students?
-        </h2>
-        <div class="popup__delete-all__buttons">
-          <button
-            data-test="cancel-btn-delete-all"
-            class="popup__delete-all__button--cancel rounded-sm button"
+          <svg
+            class="popup__delete-all__close-icon"
+            role="icon"
+            aria-label="close icon"
           >
-            Cancel
-          </button>
-          <button
-            data-test="delete-all-btn"
-            class="popup__delete-all__button--delete rounded-sm button"
-          >
-            Delete
-          </button>
+            <use xlink:href="./src/assets/icons.svg#icon-cross"></use>
+          </svg>
+        </button>
+        <div class="popup__delete-all__container">
+          <h2 class="popup__delete-all__title" data-test="delete-all-title">
+            Are you sure you want to delete all students?
+          </h2>
+          <div class="popup__delete-all__buttons">
+            <button
+              data-test="cancel-btn-delete-all"
+              class="popup__delete-all__button--cancel rounded-sm button"
+            >
+              Cancel
+            </button>
+            <button
+              data-test="delete-all-btn"
+              class="popup__delete-all__button--delete rounded-sm button"
+            >
+              Delete
+            </button>
+          </div>
         </div>
-      </div>
       </form>
     </dialog>
-    <dialog class="popup__new-student rounded-sm ">
+    <dialog class="popup__new-student rounded-sm">
       <form method="dialog" class="popup__new-student__form">
-
-      <button class="popup__new-student__close" data-test="close-btn">
-        <svg
-          class="popup__new-student__close-icon"
-          role="icon"
-          aria-label="close icon"
-        >
-          <use xlink:href="./src/assets/icons.svg#icon-cross"></use>
-        </svg>
-      </button>
-      <div class="popup__new-student__container">
-        <h2 class="popup__new-student__title">Add New Student</h2>
+        <button class="popup__new-student__close" data-test="close-btn">
+          <svg
+            class="popup__new-student__close-icon"
+            role="icon"
+            aria-label="close icon"
+          >
+            <use xlink:href="./src/assets/icons.svg#icon-cross"></use>
+          </svg>
+        </button>
+        <div class="popup__new-student__container">
+          <h2 class="popup__new-student__title">Add New Student</h2>
           <input
             class="popup__new-student__form__input rounded-sm"
             type="text"
@@ -109,7 +110,7 @@
               Add Student
             </button>
           </div>
-      </div>
+        </div>
       </form>
     </dialog>
     <div class="dropdown__download-all hidden-dropdown">
@@ -180,6 +181,6 @@
       </table>
     </main>
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

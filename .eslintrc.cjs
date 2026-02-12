@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: 'standard',
+  extends: ['standard', 'plugin:@typescript-eslint/recommended'],
   overrides: [
     {
       env: {
@@ -14,10 +14,17 @@ module.exports = {
         sourceType: 'script',
       },
     },
+    {
+      files: ['*.ts'],
+      parser: '@typescript-eslint/parser',
+    },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-explicit-any': 'warn',
+  },
 };
