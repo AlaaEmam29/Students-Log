@@ -9,9 +9,11 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .js",
     "format": "prettier --write .",
-    "cypress:open": "cypress open"
+    "test": "cypress open",
+    "ci": "npm ci && start-server-and-test dev http://localhost:5173 'cypress run'"
   },
   "devDependencies": {
+    "start-server-and-test": "^2.0.3",
     "cy-verify-downloads": "^0.2.2",
     "cypress": "^13.6.0",
     "eslint": "^8.54.0",

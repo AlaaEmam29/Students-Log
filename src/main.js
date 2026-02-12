@@ -1,8 +1,4 @@
-/* eslint-disable new-cap */
-/* eslint-disable no-shadow */
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
-import jsPDF from 'jspdf'
+import JSPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 
 const handleSetLocalStorage = (key, value) => {
@@ -318,7 +314,7 @@ const convertJSONToCSV = () => {
   return csv
 }
 const convertJSONToPDF = () => {
-  const doc = new jsPDF()
+  const doc = new JSPDF()
   autoTable(doc, {
     html: '.students__table',
     styles: { overflow: 'linebreak' },
