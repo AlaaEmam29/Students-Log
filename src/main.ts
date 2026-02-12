@@ -307,21 +307,19 @@ const addNewStudent = (student: Student, keys: string[]) => {
 };
 const editStudent = (inputs: any) => {
   if (!inputs) return;
-  const currentStudent = {};
+  const currentStudent: Record<string, string | number> = {};
   inputs.forEach((input: any) => {
     input.classList.remove('popup__new-student__input--error');
-    if (input.name in currentStudent) {
-      (currentStudent as any)[input.name] = input.value;
-    }
+    currentStudent[input.name] = input.type === 'number' ? Number(input.value) : input.value;
   });
   const keys = Object.keys(currentStudent);
   if (keys.length === 4) {
     const row = document.querySelector(`[data-row='${editIndex}']`);
     if (!row) return;
-    students[editIndex] = currentStudent as Student;
+    students[editIndex] = currentStudent as unknown as Student;
     const currentStudentRow = createRowTable(
       editIndex,
-      currentStudent as Student,
+      currentStudent as unknown as Student,
     );
     if (!currentStudentRow) return;
     row.replaceWith(currentStudentRow);
