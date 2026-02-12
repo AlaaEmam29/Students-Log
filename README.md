@@ -25,10 +25,6 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
-
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -107,7 +103,7 @@ Here's a step-by-step guide on how to install and set up 'Students Log':
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Alaa Emam](https://www.linkedin.com/in/alaa-emam-mohamed/) - alaa.shaban.527@gmail.com
+ [@Alaa Emam](https://www.linkedin.com/in/alaa-emamm/) - alaa.emam.527@gmail.com
 
 Project Link: 
 [https://github.com/AlaaEmam29/Students-Log](https://github.com/AlaaEmam29/Students-Log)
