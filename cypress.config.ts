@@ -1,15 +1,15 @@
-import { defineConfig } from 'cypress'
-import pkg from 'cy-verify-downloads'
+import { defineConfig } from 'cypress';
+import pkg from 'cy-verify-downloads';
 
-const { verifyDownloadTasks } = pkg
+const { verifyDownloadTasks } = pkg;
 
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:5173',
-    setupNodeEvents (on, _config) {
+    setupNodeEvents(on, _config) {
       on('task', {
-        verifyDownloadTasks
-      })
-    }
-  }
-})
+        verifyDownloadTasks,
+      });
+    },
+  },
+});

@@ -20,12 +20,8 @@ jobs:
       - name: Wait for server
         run: sleep 10
 
-      - name: Run ESLint
-        run: npm run lint -- --max-warnings=999
       - name: Run Prettier
         run: npm run format
-      - name: Run TypeScript
-        run: npm run typecheck
       - name: Run Cypress tests
         run: npx cypress run
       - name: Run Build

@@ -1,2 +1,2 @@
-import { addCustomCommand } from 'cy-verify-downloads'
-addCustomCommand()
+import { addCustomCommand } from 'cy-verify-downloads';
+addCustomCommand();

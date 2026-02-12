@@ -16,5 +16,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "cypress/**/*.ts", "vite.config.ts", "cypress.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "cypress/**/*.ts",
+    "vite.config.ts",
+    "cypress.config.ts"
+  ]
 }
