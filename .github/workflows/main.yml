@@ -14,11 +14,13 @@ jobs:
         uses: actions/setup-node@v4
       - name: Cache dependencies
         uses: actions/cache@v4
+        id: npm-cache
         with:
           path: ~/.npm
-          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      
-      - name: Install dependencies
+          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies if not cached
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Start dev server
